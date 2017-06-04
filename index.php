@@ -1,1 +1,2 @@
-<?php // Silence is golden
+<?php
+//[wpattach link="123" size="medium"]
