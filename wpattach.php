@@ -120,8 +120,14 @@ function GetRemoteLastModified( $uri )
 }
 
 
-function wpattach_shortcode( $atts ) 
-{ $wpattachvar = shortcode_atts( array( 'link' => '(blank)', 'size' => 'medium', ), $atts );
+function wpattach_shortcode( $atts ) {
+    $wpattachvar = shortcode_atts( array(
+        'link' => '(blank)',
+        'size' => 'medium',
+    ), $atts );
+    
+$path_parts = pathinfo($wpattachvar["link"]);
+ 
  
  $ch = curl_init($wpattachvar["link"]);
     curl_setopt($ch, CURLOPT_NOBODY, true);
@@ -143,12 +149,12 @@ function wpattach_shortcode( $atts )
     <div class="attachbox" style="max-width:300px;">
         <div class="row" style="display: flex; flex-wrap: wrap; border: 1px solid #ddd; position: relative;">
             <div class="col-xs-3" style="display: flex; flex-direction: column;">
-            <a href="'.$wpattachvar["link"].'"><img src="http://www.microprojets.org/wp-content/uploads/pdf.png" style="width:75%; height: auto; max-width:70px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"></a>
+            <a href="'.$wpattachvar["link"].'"><img src="/wp-content/plugins/wpattach/public/fileicon/'.$path_parts['extension'].'.png" style="width:75%; height: auto; max-width:70px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"></a>
             </div>
             <div class="col-xs-9" style="display: flex; flex-direction: column;">
                 <h5><a href="'.$wpattachvar["link"].'">'.basename($wpattachvar["link"]).PHP_EOL.'</a></h5>
                 <p>File size: '.formatBytes($contentLength).'
-                    <br>Last updated: '.gmdate("Y-m-d", GetRemoteLastModified($wpattachvar["link"])).'</p>
+                    <br>Last updated: '.gmdate("Y-m-d", GetRemoteLastModified($wpattachvar["link"])).'<br></p>
             </div>
         </div>
     </div>
