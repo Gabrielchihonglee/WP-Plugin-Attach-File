@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== WP Attach ===
 Contributors: gabrielchihonglee
 Donate link: https://github.com/Gabrielchihonglee
 Tags: attach, wpattach
