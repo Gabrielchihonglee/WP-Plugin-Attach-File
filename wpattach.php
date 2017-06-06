@@ -149,7 +149,7 @@ $path_parts = pathinfo($wpattachvar["link"]);
     <div class="attachbox" style="max-width:300px;">
         <div class="row" style="display: flex; flex-wrap: wrap; border: 1px solid #ddd; position: relative;">
             <div class="col-xs-3" style="display: flex; flex-direction: column;">
-            <a href="'.$wpattachvar["link"].'"><img src="'.plugins_url( 'public/file/icon/.js', __FILE__ );.$path_parts['extension'].'.png" style="width:75%; height: auto; max-width:70px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"></a>
+            <a href="'.$wpattachvar["link"].'"><img src="'.plugin_dir_url( 'wpattach/public/fileicon/.js' ).$path_parts['extension'].'.png" style="width:75%; height: auto; max-width:70px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"></a>
             </div>
             <div class="col-xs-9" style="display: flex; flex-direction: column;">
                 <h5><a href="'.$wpattachvar["link"].'">'.basename($wpattachvar["link"]).PHP_EOL.'</a></h5>
