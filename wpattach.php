@@ -20,7 +20,7 @@
  * Author:            Gabriel Chi Hong Lee
  * Author URI:        https://github.com/Gabrielchihonglee
  * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       wpattach
  * Domain Path:       /languages
  */
@@ -74,7 +74,7 @@ function run_wpattach() {
 }
 run_wpattach();
 
-function formatBytes($bytes, $precision = 2) { 
+function wpattach_formatBytes($bytes, $precision = 2) { 
     $units = array('B', 'KB', 'MB', 'GB', 'TB'); 
 
     $bytes = max($bytes, 0); 
@@ -89,7 +89,7 @@ function formatBytes($bytes, $precision = 2) {
 } 
 
 
-function GetRemoteLastModified( $uri )
+function wpattach_GetRemoteLastModified( $uri )
 {
     // default
     $unixtime = 0;
@@ -106,7 +106,7 @@ function GetRemoteLastModified( $uri )
         {
             $newUri = substr( $response, 10 );
             fclose( $fp );
-            return GetRemoteLastModified( $newUri );
+            return wpattach_GetRemoteLastModified( $newUri );
         }
         // case: last-modified
         elseif( substr( strtolower($response), 0, 15 ) == 'last-modified: ' )
@@ -149,12 +149,12 @@ $path_parts = pathinfo($wpattachvar["link"]);
     <div class="attachbox" style="max-width:300px;">
         <div class="row" style="display: flex; flex-wrap: wrap; border: 1px solid #ddd; position: relative;">
             <div class="col-xs-3" style="display: flex; flex-direction: column;">
-            <a href="'.$wpattachvar["link"].'"><img src="/wp-content/plugins/wpattach/public/fileicon/'.$path_parts['extension'].'.png" style="width:75%; height: auto; max-width:70px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"></a>
+            <a href="'.$wpattachvar["link"].'"><img src="'.plugins_url( 'public/file/icon/.js', __FILE__ );.$path_parts['extension'].'.png" style="width:75%; height: auto; max-width:70px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"></a>
             </div>
             <div class="col-xs-9" style="display: flex; flex-direction: column;">
                 <h5><a href="'.$wpattachvar["link"].'">'.basename($wpattachvar["link"]).PHP_EOL.'</a></h5>
-                <p>File size: '.formatBytes($contentLength).'
-                    <br>Last updated: '.gmdate("Y-m-d", GetRemoteLastModified($wpattachvar["link"])).'<br></p>
+                <p>File size: '.wpattach_formatBytes($contentLength).'
+                    <br>Last updated: '.gmdate("Y-m-d", wpattach_GetRemoteLastModified($wpattachvar["link"])).'<br></p>
             </div>
         </div>
     </div>
