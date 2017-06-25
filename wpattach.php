@@ -9,17 +9,17 @@
  * that starts the plugin.
  *
  * @link              https://github.com/Gabrielchihonglee
- * @since             1.0.0
+ * @since             1.0
  * @package           Wpattach
  *
  * @wordpress-plugin
  * Plugin Name:       WP Attach
  * Plugin URI:        https://github.com/Gabrielchihonglee/wpattach
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Description:       Attach files to posts or pages as an information box by using the shortcode [wpattach link="LINK_TO_YOUR_FILE"].
+ * Version:           1.0.2
  * Author:            Gabriel Chi Hong Lee
  * Author URI:        https://github.com/Gabrielchihonglee
- * License:           GPL-2.0+
+ * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       wpattach
  * Domain Path:       /languages
@@ -147,15 +147,89 @@ $path_parts = pathinfo($wpattachvar["link"]);
  
                                       return '
     <div class="attachbox" style="max-width:300px;">
-        <div class="row" style="display: flex; flex-wrap: wrap; border: 1px solid #ddd; position: relative;">
+        <div class="row" style="display: flex; flex-wrap: wrap; border: 1px solid #ddd; position: relative; max-width:300px;">
             <div class="col-xs-3" style="display: flex; flex-direction: column;">
-            <a href="'.$wpattachvar["link"].'"><img src="'.plugin_dir_url( 'wpattach/public/fileicon/.js' ).$path_parts['extension'].'.png" style="width:75%; height: auto; max-width:70px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"></a>
+            <a href="'.$wpattachvar["link"].'"><img src="'.plugins_url( 'public/fileicon/', __FILE__ ).$path_parts['extension'].'.png" style="width:75%; height: auto; max-width:70px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"></a>
             </div>
-            <div class="col-xs-9" style="display: flex; flex-direction: column;">
-                <h5><a href="'.$wpattachvar["link"].'">'.basename($wpattachvar["link"]).PHP_EOL.'</a></h5>
-                <p>File size: '.wpattach_formatBytes($contentLength).'
-                    <br>Last updated: '.gmdate("Y-m-d", wpattach_GetRemoteLastModified($wpattachvar["link"])).'<br></p>
+            <div class="col-xs-9" style="display: flex; flex-direction: column; padding-left: 5px; padding-top:10px; padding-bottom:10px;">
+                <h5 style="margin:0 0 10px 0;"><a href="'.$wpattachvar["link"].'" style="font-size:16px;">'.basename($wpattachvar["link"]).PHP_EOL.'</a></h5>
+                <p style="font-size:13px; margin:0;">File size: '.wpattach_formatBytes($contentLength).'<br>Last updated: '.gmdate("Y-m-d", wpattach_GetRemoteLastModified($wpattachvar["link"])).'<br></p>
             </div>
         </div>
     </div>
+    <style>
+        @-ms-viewport {
+            width: device-width;
+        }
+        
+        .row {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+        
+        .col,
+        .col-xs-3,
+        .col-xs-9 {
+            position: relative;
+            min-height: 1px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        .col,
+        .col-xs-3,
+        .col-xs-9 {
+            float: left;
+        }
+        
+        .col-xs-9 {
+            width: 75%;
+        }
+        
+        .col-xs-3 {
+            width: 25%;
+        }
+        
+        .clearfix,
+        .clearfix:before,
+        .clearfix:after,
+        .container:before,
+        .container:after,
+        .container-fluid:before,
+        .container-fluid:after,
+        .row:before,
+        .row:after {
+            content: " ";
+            display: table;
+        }
+        
+        .clearfix:after,
+        .container:after,
+        .container-fluid:after,
+        .row:after {
+            clear: both;
+        }
+        
+        .center-block {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .pull-right {
+            float: right !important;
+        }
+        
+        .pull-left {
+            float: left !important;
+        }
+        
+        *,
+        *:before,
+        *:after {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+    </style>
     ' ; } add_shortcode( 'wpattach', 'wpattach_shortcode' );
